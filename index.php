@@ -21,6 +21,19 @@ switch ($url) {
     case '/books/delete':
         require $dir.'delete.php';
         break;
+    case '/login':
+        require $dir.'login.php';
+        break;
+    case '/register':
+        require $dir.'register.php';
+        break;
+    case '/logout':
+        require $dir.'logout.php';
+        break;
+    case '/author':
+        require $dir.'author.php';
+        break;
+
 
     default:
         http_response_code(404);
