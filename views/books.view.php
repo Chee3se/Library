@@ -1,12 +1,19 @@
 <?php require 'components/header.php' ?>
     <h1>Books</h1>
     <p>Here you can find a collection of books.</p>
+    <form class="search" action="/books" method="GET">
+        <input id="name" name="name" type="text" placeholder="Search" />
+        <button><img src="../icons/search.svg"/></button>
+    </form>
     <div class="books">
+    <?php if (empty($books)) { ?>
+        <h2 class="found">No books found that match your criteria</h2>
+    <?php } else { ?>
     <?php foreach ($books as $book): ?>
         <div class="book">
-            <img src='<?= $book['image_url'] ?>' alt="<?= $book['name'] ?>" />
-            <p><?= $book['author'] ?></p>
-            <h2><?= $book['name'] ?></h2>
+            <a class="atext" href="/book?name=<?= $book['name'] ?>"><img src='<?= $book['image_url'] ?>' alt="<?= $book['name'] ?>" /></a>
+            <a class="atext" href="/books?author=<?= $book['author'] ?>"><p><?= $book['author'] ?></p></a>
+            <a class="atext" href="/book?name=<?= $book['name'] ?>"><h2><?= $book['name'] ?></h2></a>
             <?php if ($_SESSION['user']['permission_level'] ?? 0 > 0): ?>
                 <div>
                     <form method="POST" action="/books/delete">
@@ -21,6 +28,7 @@
             <?php endif; ?>
         </div>
     <?php endforeach; ?>
+    <?php } ?>
     </div>
 
     <?php if ($_SESSION['user']['permission_level'] ?? 0 > 0): ?>

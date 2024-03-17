@@ -49,19 +49,11 @@ footer>p {
     padding: 10px;
 }
 
-/* Table settings */
-table, th, td {
-    border: 1px solid gray;
-    border-collapse: collapse;
-    padding: 7px 12px;
-    text-align: left;
-}
-
 /* Navigation bar settings */
 nav {
     background-color: rgb(70, 70, 70);
     display: grid;
-    grid-template-columns: 20vw 20vw 1fr 10vw;
+    grid-template-columns: 20vw 20vw 1fr 10vw 10vw 10vw;
     grid-template-rows: 1fr;
     height: 40px;
     text-align: center;
@@ -178,14 +170,85 @@ form:has(.blu) {
     transition: all .5s;
 }
 
-.book>img {
+.book>a>img {
     align-self: center;
     width: 200px;
     height: 300px;
     margin-bottom: 10px;
 }
 
-.book>img:hover {
+.book>a:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.search>button {
+    padding: 0;
+    height: 28px;
+    margin-left: 5px;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.found {
+    grid-column: 1 / 5;
+}
+
+.atext {
+    color: black;
+    text-decoration: none;
+}
+.atext:hover {
+    transform: scale(1.1);
+}
+
+.book_container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    padding: 20px; /* Add padding */
+    margin: 20px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.book_container h1 {
+    grid-column: 1 / span 2;
+    font-size: 2em;
+    margin-bottom: 10px;
+    justify-self: center;
+}
+
+.book_container img {
+    grid-row: 2 / span 3;
+    max-width: 10vw;
+    height: auto;
+    align-self: center;
+    text-align: center;
+}
+
+.book_container p {
+    margin: 0;
+    padding: 10px;
+    background-color: #f0f0f0; /* Light grey background */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.book_container button {
+    grid-column: 1 / span 2;
+    padding: 10px;
+    background-color: #008CBA; /* Blue */
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition-duration: 0.4s;
+}
+
+.book_container button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
 }

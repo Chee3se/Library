@@ -10,6 +10,8 @@
 <input id="image_url" name="image_url" type="text" value="<?=$book['image_url'] ?? null?>" />
 <label for="release_date">Release date</label>
 <input id="release_date" name="release_date" type="date" value='<?=$book['release_date'] ?? date("Y-m-d")?>' />
+<label for="about">About</label>
+<textarea id="about" name="about"><?=$book['about'] ?? null?></textarea>
 <label for="availability">Availability</label>
 <select id="availability" name="availability">
     <option value="1" <?= ($book['availability'] ?? 1) == 1 ? 'selected' : '' ?>>Available</option>
