@@ -16,28 +16,14 @@ $db = new Database($config);
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        // Get the book IDs from the cookie
-        $book_ids = isset($_COOKIE['book_ids']) ? unserialize($_COOKIE['book_ids']) : [];
-
-        // If a book ID is provided in the query string, add it to the array
-        if (isset($_GET['id']) && !in_array($_GET['id'], $book_ids)) {
-            $book_ids[] = $_GET['id'];
-            // Store the updated array back in the cookie
-            setcookie("book_ids", serialize($book_ids), time() + 3600);
-        }
-
-        // Get the books from the database
-        $books = [];
-        foreach ($book_ids as $book_id) {
-            $book = $db->execute("SELECT * FROM books WHERE id = :id", [":id" => $book_id]);
-            if ($book) {
-                $books[] = $book[0];
-            }
-        }
-
-        require 'views/checkout.view.php';
+        get([]);
         break;
     case 'POST':
+        $errors = validateInput($_POST['return_date']);
+        if (!empty($errors)) {
+            get($errors);
+            exit();
+        }
         // Get the book IDs from the cookie
         $book_ids = isset($_COOKIE['book_ids']) ? unserialize($_COOKIE['book_ids']) : [];
 
@@ -75,4 +61,42 @@ switch ($_SERVER['REQUEST_METHOD']) {
     default:
         header("Location: /books");
         break;
+}
+
+function validateInput($return_date): array {
+    $errors = [];
+    if (empty($return_date)) {
+        $errors[] = "Return date is required";
+    }
+    if (strtotime($return_date) < strtotime(date("Y-m-d"))) {
+        $errors[] = "Return date must be in the future";
+    }
+    return $errors;
+}
+
+function get($errs) {
+    $page_title = "Checkout";
+    $errors = $errs ?? [];
+    $config = require "config.php";
+    $db = new Database($config);
+    // Get the book IDs from the cookie
+    $book_ids = isset($_COOKIE['book_ids']) ? unserialize($_COOKIE['book_ids']) : [];
+
+    // If a book ID is provided in the query string, add it to the array
+    if (isset($_GET['id']) && !in_array($_GET['id'], $book_ids)) {
+        $book_ids[] = $_GET['id'];
+        // Store the updated array back in the cookie
+        setcookie("book_ids", serialize($book_ids), time() + 3600);
+    }
+
+    // Get the books from the database
+    $books = [];
+    foreach ($book_ids as $book_id) {
+        $book = $db->execute("SELECT * FROM books WHERE id = :id", [":id" => $book_id]);
+        if ($book) {
+            $books[] = $book[0];
+        }
+    }
+
+    require 'views/checkout.view.php';
 }

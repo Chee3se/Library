@@ -9,13 +9,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
         require "Database.php";
         $db = new Database($config);
 
-        $user = $db->execute("SELECT * FROM users WHERE username = :username", [":username" => $_POST['username']])[0];
+        $user = $db->execute("SELECT * FROM users WHERE username = :username", [":username" => $_POST['username']])[0] ?? null;
         if ($user && password_verify($_POST['password'], $user['password'])) {
             session_start();
             $_SESSION['user'] = $user;
             header("Location: /books");
         } else {
-            header("Location: /login");
+            $error = "Invalid username or password";
+            require 'views/login.view.php';
         }
         break;
     default:
