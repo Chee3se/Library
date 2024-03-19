@@ -32,28 +32,28 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function validateInput($username, $password, $email, $password_confirmation, $user): array {
     $errors = [];
     if (strlen($username) < 3) {
-        $errors[] = "Username must be at least 3 characters long.";
+        $errors['username'][] = "❌ Username must be at least 3 characters long.";
     }
     if (strlen($password) < 8) {
-        $errors[] = "Password must be at least 8 characters long.";
+        $errors['password'][] = "❌ Password must be at least 8 characters long.";
     }
     if (!preg_match('/[A-Z]/', $password)) {
-        $errors[] = "Password must contain at least one capital letter.";
+        $errors['password'][] = "❌ Password must contain at least one capital letter.";
     }
     if (!preg_match('/[\W]/', $password)) {
-        $errors[] = "Password must contain at least one symbol.";
+        $errors['password'][] = "❌ Password must contain at least one symbol.";
     }
     if ($password !== $password_confirmation) {
-        $errors[] = "Passwords do not match.";
+        $errors['confirm_password'][] = "❌ Passwords do not match.";
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email address.";
+        $errors['email'][] = "❌ Invalid email address.";
     }
     if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
-        $errors[] = "All fields are required";
+        $errors['all'][] = "❌ All fields are required";
     }
     if ($user) {
-        $errors[] = "Username already exists";
+        $errors['username'][] = "❌ Username already exists";
     }
     return $errors;
 }

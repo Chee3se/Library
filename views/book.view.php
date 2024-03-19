@@ -5,7 +5,7 @@
     <p>By: <?= $book['author_name'] ?></p>
     <p>Published on <?= $book['release_date'] ?></p>
     <img src='<?= $book['image_url'] ?>' alt="<?= $book['name'] ?>" />
-    <p><?= $book['about'] ?></p>
+    <p class="desc"><?= $book['about'] ?></p>
     <?php if ($book['availability']): ?>
         <form method="GET" action="/checkout">
             <input id="id" name="id" type="hidden" value="<?= $book['id'] ?>" />

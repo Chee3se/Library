@@ -59,6 +59,7 @@ CREATE TABLE users (
 
 INSERT INTO users (username, password, email, permission_level) VALUES
 ('admin', '$2y$10$LXrs1zxgg.bc1TK7rugWcuJSClBRM54wc45IA5orWsYG.7pFRSm9m', 'admin@books.com', 1);
+-- password: root
 
 CREATE TABLE borrowed_books (
     id INT AUTO_INCREMENT PRIMARY KEY,

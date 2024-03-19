@@ -7,6 +7,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $config = require "config.php";
             require "Database.php";
             $db = new Database($config);
+            $db->execute("DELETE FROM borrowed_books WHERE book_id=:id", [":id" => $_POST['id']]);
             $db->execute("DELETE FROM books WHERE id=:id", [":id" => $_POST['id']]);
         }
         header("Location: /books");

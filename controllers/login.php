@@ -15,7 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $_SESSION['user'] = $user;
             header("Location: /books");
         } else {
-            $error = "Invalid username or password";
+            $error = "❌ Invalid username or password";
             require 'views/login.view.php';
         }
         break;

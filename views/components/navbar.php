@@ -17,5 +17,5 @@
         <a class=<?php if ($_SERVER['REQUEST_URI'] == "/login") {echo "active";} else {echo "none";}?>  href="/login">Login</a>
     <?php } ?>
 </nav>
-<img class="icons menu" src="/icons/menu.svg" alt="Menu">
-<img class="icons close" src="/icons/close.svg" alt="Close">
+<img class="icons menu" src="/views/icons/menu.svg" alt="Menu">
+<img class="icons close" src="/views/icons/close.svg" alt="Close">
