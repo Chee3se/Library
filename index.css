@@ -131,6 +131,7 @@ a.text:hover {
     background-color: #04AA6D;
     border: 2px solid #04AA6D;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* Button settings for class 'no' */
@@ -276,6 +277,14 @@ form:has(.blu) {
     color: white;
 }
 
+.book_container>.nobutton {
+    grid-column: 1 / span 2;
+}
+
+.book_container ~ label {
+    text-align: center;
+}
+
 p.error {
     color: red;
     font-size: 0.8em;
@@ -315,8 +324,9 @@ input.look {
 button.look {
     border-radius: 0 10px 10px 0;
     padding-right: 2px;
-    background-color: black;
+    background-color: rgb(70, 70, 70);
     cursor: pointer;
+    padding: 0 2px;
 }
 
 div.fix {
@@ -324,6 +334,40 @@ div.fix {
     flex-direction: column;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+/* Set a specific size for the book cover images */
+.checkout .book_table img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Add solid borders to the table and its cells */
+.checkout table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.checkout table, .checkout th, .checkout td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+/* Set the width for the book cover images column */
+.checkout th:nth-child(1), .checkout td:nth-child(1) {
+    width: 40%;
+}
+
+/* Set the width for the book name column */
+.checkout th:nth-child(2), .checkout td:nth-child(2) {
+    width: 60%;
+}
+
+/* Style the number input field for the order count */
+.checkout input[type="number"] {
+    width: 50px;
 }
 
 @media screen and (max-width: 1040px) {
