@@ -29,8 +29,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         foreach ($borrowed_books as $borrowed_book) {
             $book = $db->execute("SELECT * FROM books WHERE id = :id", [":id" => $borrowed_book['book_id']]);
             if ($book) {
-                $books[] = $book[0];
-                $books["borrowed_amount"] = $borrowed_book['count'];
+                $books[$borrowed_book['id']] = $book[0];
             }
         }
 
@@ -38,16 +37,19 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         // Get the book ID from the POST data
-        $book_id = $_POST['book_id'];
+        $borrowed_books_id = $_POST['borrowed_books_id'];
 
         // Update the borrowed_books table to mark the book as returned and change the status to 'returned'
-        $db->execute("UPDATE borrowed_books SET status = 'returned' WHERE book_id = :book_id AND user_id = :user_id", [
-            ":book_id" => $book_id,
+        $db->execute("UPDATE borrowed_books SET status = 'returned' WHERE id = :id AND user_id = :user_id", [
+            ":id" => $borrowed_books_id,
             ":user_id" => $_SESSION['user']['id']
         ]);
 
-        // Update the books table to mark the book as available
-        $db->execute("UPDATE books SET availability = 1 WHERE id = :id", [":id" => $book_id]);
+        $borrowed_book = $db->execute("SELECT * FROM borrowed_books WHERE id = :id", [":id" => $borrowed_books_id])[0];
+
+        // Update the books table to up the book count
+        $db->execute("UPDATE books SET count = count + :count, availability = 'Available' WHERE id = :id", [":id" => $borrowed_book['book_id'], ":count" => $borrowed_book['count']]);
+
 
         $message = "Book returned successfully!";
         require 'views/message.view.php';

@@ -37,7 +37,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 // Check if the book is available
                 $book = $db->execute("SELECT * FROM books WHERE id = :id AND availability = 'Available'", [":id" => $book_id]);
                 if ($book) {
-                    $count = $_POST['count['.$book_id.']'] ?? 0;
+                    $count = $_POST['count'][$book_id] ?? 0;
                     $newCount = $book[0]['count'] - $count;
                     $availability = $newCount > 0 ? 'Available' : 'Not Available';
                     $db->execute("INSERT INTO borrowed_books (user_id, book_id, count, borrow_date, return_date, status) VALUES (:user_id, :book_id, :count, :borrow_date, :return_date, 'borrowing')", [

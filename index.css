@@ -182,11 +182,11 @@ form:has(.blu) {
 }
 
 .book>a {
-    transition: all .5s;
+    transition: all .2s;
 }
 
 .book>a:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
     cursor: pointer;
 }
 
