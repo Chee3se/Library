@@ -30,6 +30,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $book = $db->execute("SELECT * FROM books WHERE id = :id", [":id" => $borrowed_book['book_id']]);
             if ($book) {
                 $books[] = $book[0];
+                $books["borrowed_amount"] = $borrowed_book['count'];
             }
         }
 
