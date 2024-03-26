@@ -178,10 +178,15 @@ form:has(.blu) {
     width: 200px;
     height: 300px;
     margin-bottom: 10px;
+    transform: scale(1);
+}
+
+.book>a {
+    transition: all .5s;
 }
 
 .book>a:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     cursor: pointer;
 }
 
