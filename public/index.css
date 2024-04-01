@@ -374,8 +374,42 @@ div.fix {
 .checkout input[type="number"] {
     width: 50px;
 }
+.book_container>img {
+    display: block;
+}
+.login > img {
+    position: relative;
+    top: 6px;
+    height: 20px;
+    width: 25px;
+    border: 1px solid black;
+    border-radius: 7px 0 0 7px;
+}
+.register > div > img {
+    position: relative;
+    height: 20px;
+    width: 25px;
+    top: 22px;
+    right: 26px;
+    border: 1px solid black;
+    border-radius: 7px 0 0 7px;
+
+}
 
 @media screen and (max-width: 1040px) {
+    .book_container>img {
+        display: none;
+    }
+    .book_container>p {
+        grid-column: 1;
+    }
+    .book_container>h1 {
+        grid-column: 1;
+    }
+    .book>img {
+        width: 220px;
+
+    }
     .books {
         grid-template-columns: 1fr;
     }

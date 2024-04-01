@@ -1,19 +1,23 @@
 <?php
-$page_title = "Register";
+
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        require 'views/register.view.php';
+        view('register', [
+            "page_title" => "Register"
+        ]);
         break;
     case 'POST':
-        $config = require "config.php";
-        require "Database.php";
+        $config = require base_path("config.php");
         $db = new Database($config);
         $user = $db->execute("SELECT * FROM users WHERE username = :username", [":username" => $_POST['username']]);
         $errors = validateInput($_POST['username'], $_POST['password'], $_POST['email'], $_POST['password_confirmation'], $user);
         if (!empty($errors)) {
             // Store the error messages in the session and redirect back to the register page
             session_start();
-            require 'views/register.view.php';
+            view('register', [
+                "errors" => $errors,
+                "page_title" => "Register"
+            ]);
             exit();
         }
         $db->execute("INSERT INTO users (username, password, email, permission_level) VALUES (:username, :password, :email, :permission_level)", [

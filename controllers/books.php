@@ -1,8 +1,6 @@
-<?php 
+<?php
 
-$config = require "config.php";
-require "Database.php";
-$page_title = "Books";
+$config = require base_path("config.php");
 $db = new Database($config);
 
 if (isset($_GET['name'])) {
@@ -19,4 +17,7 @@ if (isset($_GET['name'])) {
     $books = $db->execute($query_string, $params);
 }
 
-require "views/books.view.php";
+view('books', [
+    "books" => $books,
+    "page_title" => "Books"
+]);

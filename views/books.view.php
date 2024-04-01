@@ -3,7 +3,7 @@
     <p>Here you can find a collection of books.</p>
     <form class="search" action="/books" method="GET">
         <input class="look" id="name" name="name" type="text" placeholder="Search" />
-        <button class="look"><img src="/views/icons/search.svg"/></button>
+        <button class="look"><img src="/icons/search.svg"/></button>
     </form>
     <div class="books">
     <?php if (empty($books)) { ?>

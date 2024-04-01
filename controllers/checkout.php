@@ -1,7 +1,6 @@
 <?php
 // checkout.php
 session_start();
-$page_title = "Checkout";
 
 // Check if the user is logged in
 if (!isset($_SESSION['user'])) {
@@ -10,8 +9,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-$config = require "config.php";
-require "Database.php";
+$config = require base_path("config.php");
 $db = new Database($config);
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -53,8 +51,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
             // Clear the book_ids cookie
             setcookie("book_ids", "", time() - 3600);
-            $message = "Books borrowed successfully!";
-            require 'views/message.view.php';
+            view('message', [
+                "message" => "Books borrowed successfully!"
+            ]);
         }
         break;
     default:

@@ -1,7 +1,6 @@
 <?php
 // return.php
 session_start();
-$page_title = "Return book";
 
 // Check if the user is logged in
 if (!isset($_SESSION['user'])) {
@@ -10,8 +9,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-$config = require "config.php";
-require "Database.php";
+$config = require base_path("config.php");
 $db = new Database($config);
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -33,7 +31,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
             }
         }
 
-        require 'views/return.view.php';
+        view('return', [
+            "borrowed_books" => $borrowed_books,
+            "books" => $books,
+            "page_title" => "Return book"
+        ]);
         break;
     case 'POST':
         // Get the book ID from the POST data
@@ -50,9 +52,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Update the books table to up the book count
         $db->execute("UPDATE books SET count = count + :count, availability = 'Available' WHERE id = :id", [":id" => $borrowed_book['book_id'], ":count" => $borrowed_book['count']]);
 
-
-        $message = "Book returned successfully!";
-        require 'views/message.view.php';
+        view('message', [
+            "message" => "Book returned successfully!"
+        ]);
         break;
     default:
         header("Location: /books");

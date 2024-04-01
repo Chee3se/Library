@@ -2,12 +2,12 @@
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        $page_title = "Create author";
-
-        require "views/author.view.php";
+        view('author', [
+            "page_title" => "Create author",
+        ]);
         break;
     case 'POST':
-        $config = require "config.php";
+        $config = require base_path("config.php");
         require "Database.php";
         $db = new Database($config);
 

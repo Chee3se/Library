@@ -8,9 +8,9 @@
     <?php endforeach; ?>
 </select>
 <?php check($errors ?? [], 'author_id'); ?>
-<label for="image_url">Image URL</label>
-<input id="image_url" name="image_url" type="text" value="<?=$book['image_url'] ?? null?>" />
-<?php check($errors ?? [], 'image_url'); ?>
+<label for="image">Image</label>
+<input id="image" name="image" type="file" />
+<?php check($errors ?? [], 'image'); ?>
 <label for="release_date">Release date</label>
 <input id="release_date" name="release_date" type="date" value='<?=$book['release_date'] ?? date("Y-m-d")?>' />
 <?php check($errors ?? [], 'release_date'); ?>
