@@ -78,7 +78,7 @@ function validateInput($return_date, $book_ids): array {
 function get($errs) {
     $page_title = "Checkout";
     $errors = $errs ?? [];
-    $config = require "config.php";
+    $config = require base_path("config.php");
     $db = new Database($config);
     // Get the book IDs from the cookie
     $book_ids = isset($_COOKIE['book_ids']) ? unserialize($_COOKIE['book_ids']) : [];
@@ -104,5 +104,7 @@ function get($errs) {
         }
     }
 
-    require 'views/checkout.view.php';
+    view('checkout', [
+        'books' => $books
+    ]);
 }
